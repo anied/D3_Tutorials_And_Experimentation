@@ -70,14 +70,9 @@ html {
 	margin-top: calc(50vh - 0.5em);
 	color: #FFF;
 	opacity: 0;
-	transition: opacity 1s;
 }
 
 .word {
 	margin-left: 0.25em;
 	margin-right: 0.25em;
-}
-
-.letter {
-	transition: color 1s;
 }
