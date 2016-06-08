@@ -1,0 +1,22 @@
+{
+  "name": "D3_Tutorials_And_Experimentation",
+  "version": "0.0.0",
+  "description": "Just a repo to store various tests, tutorials and other code while learning D3.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node node_modules/.bin/http-server src"
+  },
+  "keywords": [
+    "prototype",
+    "shell",
+    "template",
+    "http-server",
+    "local",
+    "development"
+  ],
+  "author": "Alexander Nied",
+  "license": "None",
+  "devDependencies": {
+    "http-server": "~0.8.0"
+  }
+}
