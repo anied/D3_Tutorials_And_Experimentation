@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	window.setInterval(function () {
 		letters.transition()
 				.duration(1000)
+				.ease("linear")
 				.style('color', function () {
 			return "hsl(" + Math.random() * 360 + ",100%,50%)"; // lifted from D3 welcome page
 		});
