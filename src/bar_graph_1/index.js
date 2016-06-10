@@ -54,9 +54,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	}
 
-	document.querySelector('#update').addEventListener('click', function () {
+	// document.querySelector('#update').addEventListener('click', function () {
+	// 	var newData = getUpdatedData();
+	// 	updateGraph(newData);
+	// });
+
+	document.querySelector('.controls-wrapper').addEventListener('input', function () {
 		var newData = getUpdatedData();
-		updateGraph(newData);
+		updateGraph(newData);		
 	});
 
 
