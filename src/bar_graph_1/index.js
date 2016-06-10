@@ -28,15 +28,26 @@ document.addEventListener('DOMContentLoaded', function () {
 			return 'rgb(' + calcColor(datum) + ',0,' + (255-calcColor(datum)) + ')';
 		}
 
-		d3.select('.bar-graph')
+		var barGraph = d3.select('.bar-graph')
 			.style('padding-top', (500 - calcHeight(d3.max(data))) + 'px')
 			.selectAll('div.bar')
-				.data(data)
-			.enter().append('div').classed('bar', true)
+				.data(data);
+
+		barGraph.exit().remove();
+
+		barGraph.enter().append('div').classed('bar', true)
 				.style({
 					'height' : function (d) { return calcHeight(d) + 'px'},
 					'background-color' : function (d) { 
-						console.log(generateRGB(d));
+						console.log(d);
+						return generateRGB(d) 
+					}
+				});
+
+		barGraph.style({
+					'height' : function (d) { return calcHeight(d) + 'px'},
+					'background-color' : function (d) { 
+						console.log(d);
 						return generateRGB(d) 
 					}
 				});
