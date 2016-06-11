@@ -1,0 +1,12 @@
+.bar-graph {
+	height: 500px;
+	position: relative;
+	box-sizing: border-box;
+}
+
+.bar {
+	width: 47px;
+	display: inline-block;
+	background-color: red;
+	margin: 0 45px;
+}
