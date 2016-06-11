@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		var i;
 
 		for (i = 0; i < inputs.length; i++) {
-			data.push(inputs[i].value);
+			data.push(parseInt(inputs[i].value, 10));
 		}
 
 		return data;
@@ -39,19 +39,22 @@ document.addEventListener('DOMContentLoaded', function () {
 				.style({
 					'height' : function (d) { return calcHeight(d) + 'px'},
 					'background-color' : function (d) { 
-						console.log(d);
-						return generateRGB(d) 
+						return generateRGB(d);
 					}
 				});
 
 		barGraph.style({
 					'height' : function (d) { return calcHeight(d) + 'px'},
 					'background-color' : function (d) { 
-						console.log(d);
-						return generateRGB(d) 
+						return generateRGB(d);
 					}
 				});
 
+	}
+
+	function update() {
+		var newData = getUpdatedData();
+		updateGraph(newData);
 	}
 
 	// document.querySelector('#update').addEventListener('click', function () {
@@ -59,10 +62,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	// 	updateGraph(newData);
 	// });
 
-	document.querySelector('.controls-wrapper').addEventListener('input', function () {
-		var newData = getUpdatedData();
-		updateGraph(newData);		
-	});
+	document.querySelector('.controls-wrapper').addEventListener('input', update);
 
+	update();
 
 });
