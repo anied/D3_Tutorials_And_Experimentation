@@ -13,16 +13,17 @@
 
 	<div class="container">
 		<h1>Weather Forecast</h1>
-		<p class="lead">Use your browsers location to get local weather, or search weather by zipcode.</p>
+		<p class="lead showIfLocation">Use your browsers location to get local weather, or search weather by zipcode.</p>
+		<p class="lead hideIfLocation">Search weather by zipcode.</p>
 		<div class="form-inline">
-			<div class="form-group">
-				<button type="button" class="btn btn-primary">Get weather for my location</button>
+			<div class="form-group showIfLocation">
+				<button id="getWeatherByLocation" type="button" class="btn btn-primary" >Get weather for my location</button>
+				<strong class="inline-clearance">OR</strong>
 			</div>
-			<strong class="inline-clearance">OR</strong>
 			<div class="form-group">
 				<label class="sr-only" for="zipcode">zipcode</label>
 				<input class="form-control" type="text" id="zipcode" placeholder="Search by zip">
-				<button type="button" class="btn btn-default">Search</button>
+				<button id="getWeatherByZip" type="button" class="btn btn-default">Search</button>
 			</div>
 
 		</div>

@@ -2,3 +2,29 @@
 	margin-right: 1em;
 	margin-left: 1em;
 }
+
+
+.geolocation-supported .lead.showIfLocation {
+	display: block;
+}
+
+.geolocation-supported .form-inline .form-group.showIfLocation {
+	display: inline-block;
+}
+
+.geolocation-supported .hideIfLocation {
+	display: none !important;
+}
+
+
+.geolocation-unsupported .lead.hideIfLocation {
+	display: block;
+}
+
+.geolocation-unsupported .form-inline .form-group.hideIfLocation {
+	display: inline-block;
+}
+
+.geolocation-unsupported .showIfLocation {
+	display: none !important;
+}
