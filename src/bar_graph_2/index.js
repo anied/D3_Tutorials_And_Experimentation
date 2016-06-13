@@ -13,9 +13,57 @@ document.addEventListener('DOMContentLoaded', function () {
 		$qs('body').className += "geolocation-unsupported";
 	}
 
-	function loadWeatherData(data) {
-		console.log('loadWeatherData');
-		console.log(data);
+	function loadWeatherData(data) { //TODO-- everything goes in the one big method to start-- later on it ought to be properly broken out into separate functions for setup, update, etc...
+		var datesArr = data.time.startPeriodName;
+		var tempsArr = data.data.temperature;
+		var dataArr = [];
+		var i;
+
+		var height = 600;
+		var barHeightMAX = 500;
+		var barWidth = 20;
+		var barSpacer = 3;
+
+		var calcBarHeight = d3.scale.linear()
+									.domain([0, 100])
+									.range([0, barHeightMAX]);
+
+		var calcColor = d3.scale.linear()
+									.domain([0, 100])
+									.rangeRound([0, 255]);
+
+		var barGraph = d3.select('.bar-graph')
+							.attr('height', height);
+
+		var bar;
+
+		for (i = 0; i < datesArr.length; i++) {
+			dataArr.push({
+				label: datesArr[i],
+				temp: parseInt(tempsArr[i], 10)
+			});
+		}
+
+		bar = barGraph.selectAll('g')
+				.data(datesArr);
+
+		barGraph.attr('width', (datesArr.length * (barWidth+barSpacer))+'px' );
+
+		bar.exit().remove();
+
+		bar.enter()
+				.append('g')
+				.attr('transform', function(d, i) { 
+					var width = i === 0 ? barSpacer : barSpacer + (barSpacer*i) + (barWidth*i);
+					return 'translate(' + width + ',' + barHeightMAX + ')';
+				})
+					.append('rect')
+					.attr('width', barWidth+'px')
+					.attr('height', 100+'px');
+
+
+
+
 	}
 
 	function fetchWeather(lat, long) {
@@ -72,4 +120,5 @@ document.addEventListener('DOMContentLoaded', function () {
 		.addEventListener('click', function () {
 			getWeatherByZip();
 		});
+
 });
