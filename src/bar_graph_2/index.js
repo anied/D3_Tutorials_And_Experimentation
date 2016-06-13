@@ -13,7 +13,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		$qs('body').className += "geolocation-unsupported";
 	}
 
-	function loadWeatherData(data) { //TODO-- everything goes in the one big method to start-- later on it ought to be properly broken out into separate functions for setup, update, etc...
+	function loadWeatherData(data) {
+		//TODO-- everything goes in the one big method to start-- later on it ought to be properly broken out into separate functions for setup, update, etc...
+		//TODO-- seperate attr methods are a little messy-- one big object (or even a function returning the various objects) would probably be cleaner
+		//TODO-- get the "update" cycle initiated
+		//TODO-- make it look nice
+
 		var datesArr = data.time.startPeriodName;
 		var tempsArr = data.data.temperature;
 		var dataArr = [];
@@ -63,6 +68,12 @@ document.addEventListener('DOMContentLoaded', function () {
 				})
 					.append('rect')
 					.attr('width', barWidth+'px')
+					.attr('y', function (d, i) {
+						return calcBarHeight(d.temp)+'px';
+					})
+					.attr('height', '0px')
+					.transition().duration(500)
+					.attr('y', 0)
 					.attr('height', function (d, i) {
 						return calcBarHeight(d.temp)+'px';
 					})
