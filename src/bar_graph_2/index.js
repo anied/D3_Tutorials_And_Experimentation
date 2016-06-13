@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		var dataArr = [];
 		var i;
 
-		var height = 600;
-		var barHeightMAX = 500;
+		var height = 400;
+		var barHeightMAX = 300;
 		var barWidth = 20;
 		var barSpacer = 3;
 
@@ -37,6 +37,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		var bar;
 
+		function generateRGB(datum) {
+			return 'rgb(' + calcColor(datum) + ',0,' + (255-calcColor(datum)) + ')';
+		}
+
 		for (i = 0; i < datesArr.length; i++) {
 			dataArr.push({
 				label: datesArr[i],
@@ -45,9 +49,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 
 		bar = barGraph.selectAll('g')
-				.data(datesArr);
+				.data(dataArr);
 
-		barGraph.attr('width', (datesArr.length * (barWidth+barSpacer))+'px' );
+		barGraph.attr('width', (dataArr.length * (barWidth+barSpacer))+'px' );
 
 		bar.exit().remove();
 
@@ -55,11 +59,16 @@ document.addEventListener('DOMContentLoaded', function () {
 				.append('g')
 				.attr('transform', function(d, i) { 
 					var width = i === 0 ? barSpacer : barSpacer + (barSpacer*i) + (barWidth*i);
-					return 'translate(' + width + ',' + barHeightMAX + ')';
+					return 'translate(' + width + ',' + (barHeightMAX-calcBarHeight(d.temp)) + ')';
 				})
 					.append('rect')
 					.attr('width', barWidth+'px')
-					.attr('height', 100+'px');
+					.attr('height', function (d, i) {
+						return calcBarHeight(d.temp)+'px';
+					})
+					.attr('fill', function (d, i) {
+						return generateRGB(d.temp);
+					});
 
 
 
