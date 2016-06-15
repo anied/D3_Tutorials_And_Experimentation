@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 		}
 
+		zeroData();
+
 		bar = barGraph.selectAll('g')
 				.data(dataArr);
 
@@ -71,19 +73,28 @@ document.addEventListener('DOMContentLoaded', function () {
 					.attr('y', function (d, i) {
 						return calcBarHeight(d.temp)+'px';
 					})
-					.attr('height', '0px')
-					.transition().duration(500)
-					.attr('y', 0)
-					.attr('height', function (d, i) {
-						return calcBarHeight(d.temp)+'px';
-					})
-					.attr('fill', function (d, i) {
-						return generateRGB(d.temp);
-					});
+					.attr('height', '0px');
 
 
+		bar.select('rect')
+			.transition().duration(500)
+			.attr('y', 0)
+			.attr('height', function (d, i) {
+				return calcBarHeight(d.temp)+'px';
+			})
+			.attr('fill', function (d, i) {
+				return generateRGB(d.temp);
+			});
 
+	}
 
+	function zeroData() {
+
+		var bar = d3.select('.bar-graph').selectAll('g')
+				.data([]);
+
+		bar.exit().remove();
+	
 	}
 
 	function fetchWeather(lat, long) {
