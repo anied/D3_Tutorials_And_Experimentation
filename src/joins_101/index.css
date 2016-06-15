@@ -1,0 +1,8 @@
+.rendering-area {
+	border: 1px #DDD dotted;
+	padding: 15px;
+}
+
+code.hljs {
+	background-color: inherit;
+}

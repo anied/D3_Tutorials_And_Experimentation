@@ -25,6 +25,7 @@
     "tests"
   ],
   "dependencies": {
-    "d3": "~3.5.17"
+    "d3": "~3.5.17",
+    "highlightjs": "~9.4.0"
   }
 }
