@@ -7,6 +7,19 @@ document.addEventListener('DOMContentLoaded', function () {
 	var zipSubmitButton = $qs('#getWeatherByZip');
 	var geolocationAvailable = ("geolocation" in navigator);
 
+	var height = 400;
+	var barHeightMAX = 300;
+	var barWidth = 20;
+	var barSpacer = 3;
+
+	var calcBarHeight = d3.scale.linear()
+								.domain([0, 100])
+								.range([0, barHeightMAX]);
+
+	var calcColor = d3.scale.linear()
+								.domain([0, 100])
+								.rangeRound([0, 255]);
+
 	if (geolocationAvailable) {
 		$qs('body').className += "geolocation-supported";
 	} else {
@@ -24,18 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		var dataArr = [];
 		var i;
 
-		var height = 400;
-		var barHeightMAX = 300;
-		var barWidth = 20;
-		var barSpacer = 3;
-
-		var calcBarHeight = d3.scale.linear()
-									.domain([0, 100])
-									.range([0, barHeightMAX]);
-
-		var calcColor = d3.scale.linear()
-									.domain([0, 100])
-									.rangeRound([0, 255]);
 
 		var barGraph = d3.select('.bar-graph')
 							.attr('height', height);
@@ -55,36 +56,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		zeroData();
 
-		bar = barGraph.selectAll('g')
-				.data(dataArr);
 
-		barGraph.attr('width', (dataArr.length * (barWidth+barSpacer))+'px' );
+		setTimeout(function () {
+			bar = barGraph.selectAll('g')
+					.data(dataArr);
 
-		bar.exit().remove();
+			barGraph.attr('width', (dataArr.length * (barWidth+barSpacer))+'px' );
 
-		bar.enter()
-				.append('g')
-				.attr('transform', function(d, i) { 
-					var width = i === 0 ? barSpacer : barSpacer + (barSpacer*i) + (barWidth*i);
-					return 'translate(' + width + ',' + (barHeightMAX-calcBarHeight(d.temp)) + ')';
-				})
-					.append('rect')
-					.attr('width', barWidth+'px')
-					.attr('y', function (d, i) {
-						return calcBarHeight(d.temp)+'px';
+			bar.exit().remove();
+
+			bar.enter()
+					.append('g')
+					.attr('transform', function(d, i) { 
+						var width = i === 0 ? barSpacer : barSpacer + (barSpacer*i) + (barWidth*i);
+						return 'translate(' + width + ',' + (barHeightMAX-calcBarHeight(d.temp)) + ')';
 					})
-					.attr('height', '0px');
+						.append('rect')
+						.attr('width', barWidth+'px')
+						.attr('y', function (d, i) {
+							return calcBarHeight(d.temp)+'px';
+						})
+						.attr('height', '0px');
 
 
-		bar.select('rect')
-			.transition().duration(500)
-			.attr('y', 0)
-			.attr('height', function (d, i) {
-				return calcBarHeight(d.temp)+'px';
-			})
-			.attr('fill', function (d, i) {
-				return generateRGB(d.temp);
-			});
+			bar.select('rect')
+				.transition().duration(500)
+				.attr('y', 0)
+				.attr('height', function (d, i) {
+					return calcBarHeight(d.temp)+'px';
+				})
+				.attr('fill', function (d, i) {
+					return generateRGB(d.temp);
+				});
+		}, 1000);
 
 	}
 
@@ -93,7 +97,17 @@ document.addEventListener('DOMContentLoaded', function () {
 		var bar = d3.select('.bar-graph').selectAll('g')
 				.data([]);
 
-		bar.exit().remove();
+		bar.exit().select('rect')
+					.transition().duration(500)
+					.attr('y', function (d, i) {
+						return calcBarHeight(100)+'px';
+					})
+					.attr('height', '0px')
+					.remove();
+
+		setTimeout(function () {
+			bar.exit().remove();
+		}, 500);
 	
 	}
 
