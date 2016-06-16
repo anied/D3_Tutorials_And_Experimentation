@@ -9,15 +9,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	var height = 400;
 	var barHeightMAX = 300;
-	var barWidth = 20;
-	var barSpacer = 3;
+	var barWidth = 40;
+	var barSpacer = 5;
+	var maxTemp = 100;
 
 	var calcBarHeight = d3.scale.linear()
-								.domain([0, 100])
+								.domain([0, maxTemp])
 								.range([0, barHeightMAX]);
 
 	var calcColor = d3.scale.linear()
-								.domain([0, 100])
+								.domain([0, maxTemp])
 								.rangeRound([0, 255]);
 
 	if (geolocationAvailable) {
@@ -106,14 +107,14 @@ document.addEventListener('DOMContentLoaded', function () {
 				.transition().duration(500)
 				.attr('transform', function(d, i) { 
 					var width = i === 0 ? barSpacer : barSpacer + (barSpacer*i) + (barWidth*i);
-					return 'translate(' + width + ',' + (barHeightMAX-calcBarHeight(100)) + ')';
+					return 'translate(' + width + ',' + (barHeightMAX-calcBarHeight(maxTemp)) + ')';
 				}).each('start', function () {
 					d3.select(this)
 						.select('rect')
 							.transition().duration(500)
 							.attr({
 								'y': function (d, i) {
-									return calcBarHeight(100)+'px';
+									return calcBarHeight(maxTemp)+'px';
 								},
 								'height': '0px'
 							}).each('end', function () {
