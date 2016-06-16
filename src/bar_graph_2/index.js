@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	function loadWeatherData(data) {
 		//TODO-- everything goes in the one big method to start-- later on it ought to be properly broken out into separate functions for setup, update, etc...
 		//TODO-- seperate attr methods are a little messy-- one big object (or even a function returning the various objects) would probably be cleaner
-		//TODO-- get the "update" cycle initiated
 		//TODO-- make it look nice
 
 		var datesArr = data.time.startPeriodName;
@@ -100,25 +99,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		bar = bar.data([]);
 
-		// debugger;
-
 		if (n === barLength) {
 			callback();
 		} else {
-			bar.exit().select('rect')
-						.transition().duration(500)
-						.attr({
-							'y': function (d, i) {
-								return calcBarHeight(100)+'px';
-							},
-							'height': '0px'
-						}).each('end', function () {
-							n++;
-							this.parentNode.remove();
-							if (n === barLength) {
-								callback();
-							}
-						});			
+			bar.exit()
+				.transition().duration(500)
+				.attr('transform', function(d, i) { 
+					var width = i === 0 ? barSpacer : barSpacer + (barSpacer*i) + (barWidth*i);
+					return 'translate(' + width + ',' + (barHeightMAX-calcBarHeight(100)) + ')';
+				}).each('start', function () {
+					d3.select(this)
+						.select('rect')
+							.transition().duration(500)
+							.attr({
+								'y': function (d, i) {
+									return calcBarHeight(100)+'px';
+								},
+								'height': '0px'
+							}).each('end', function () {
+								n++;
+								this.parentNode.remove();
+								if (n === barLength) {
+									callback();
+								}
+							});			
+				});
 		}
 
 	
