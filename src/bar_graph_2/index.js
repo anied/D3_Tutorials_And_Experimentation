@@ -99,15 +99,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		bar.exit().select('rect')
 					.transition().duration(500)
-					.attr('y', function (d, i) {
-						return calcBarHeight(100)+'px';
-					})
-					.attr('height', '0px')
-					.remove();
-
-		setTimeout(function () {
-			bar.exit().remove();
-		}, 500);
+					.attr({
+						'y': function (d, i) {
+							return calcBarHeight(100)+'px';
+						},
+						'height': '0px'
+					}).each('end', function () {
+						this.parentNode.remove();
+					});
 	
 	}
 
