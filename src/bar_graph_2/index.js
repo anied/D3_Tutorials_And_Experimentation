@@ -47,17 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			return 'rgb(' + calcColor(datum) + ',0,' + (255-calcColor(datum)) + ')';
 		}
 
-		for (i = 0; i < datesArr.length; i++) {
-			dataArr.push({
-				label: datesArr[i],
-				temp: parseInt(tempsArr[i], 10)
-			});
-		}
-
-		zeroData();
-
-
-		setTimeout(function () {
+		function update() {
 			bar = barGraph.selectAll('g')
 					.data(dataArr);
 
@@ -88,25 +78,49 @@ document.addEventListener('DOMContentLoaded', function () {
 				.attr('fill', function (d, i) {
 					return generateRGB(d.temp);
 				});
-		}, 1000);
+		}
+
+		for (i = 0; i < datesArr.length; i++) {
+			dataArr.push({
+				label: datesArr[i],
+				temp: parseInt(tempsArr[i], 10)
+			});
+		}
+
+		zeroData(update); // pass in update as callback
 
 	}
 
-	function zeroData() {
+	function zeroData(callback) {
 
-		var bar = d3.select('.bar-graph').selectAll('g')
-				.data([]);
+		var bar = d3.select('.bar-graph').selectAll('g');
 
-		bar.exit().select('rect')
-					.transition().duration(500)
-					.attr({
-						'y': function (d, i) {
-							return calcBarHeight(100)+'px';
-						},
-						'height': '0px'
-					}).each('end', function () {
-						this.parentNode.remove();
-					});
+		var barLength = bar[0].length;
+		var n = 0;
+
+		bar = bar.data([]);
+
+		// debugger;
+
+		if (n === barLength) {
+			callback();
+		} else {
+			bar.exit().select('rect')
+						.transition().duration(500)
+						.attr({
+							'y': function (d, i) {
+								return calcBarHeight(100)+'px';
+							},
+							'height': '0px'
+						}).each('end', function () {
+							n++;
+							this.parentNode.remove();
+							if (n === barLength) {
+								callback();
+							}
+						});			
+		}
+
 	
 	}
 
