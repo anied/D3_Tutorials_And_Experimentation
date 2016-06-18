@@ -31,3 +31,11 @@
 .geolocation-unsupported .showIfLocation {
 	display: none !important;
 }
+
+
+rect+text {
+	fill: white;
+    font: 15px sans-serif;
+    text-anchor: middle;
+    font-weight: bold;
+}

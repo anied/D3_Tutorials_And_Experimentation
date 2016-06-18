@@ -72,11 +72,25 @@ document.addEventListener('DOMContentLoaded', function () {
 			bar.select('rect')
 				.transition().duration(500)
 				.attr('y', 0)
-				.attr('height', function (d, i) {
-					return calcBarHeight(d.temp)+'px';
-				})
-				.attr('fill', function (d, i) {
-					return generateRGB(d.temp);
+				.attr({
+					'height' : function (d, i) {
+						return calcBarHeight(d.temp)+'px';
+					},
+					'fill' : function (d, i) {
+						return generateRGB(d.temp);
+					}
+				}).each('end', function (d, i) {
+					d3.select(this.parentNode)
+						.append('text')
+						.attr({
+							'x': function (d, y) {
+								return barWidth / 2; 
+							},
+							'y': 20
+						})
+						.text(function (d, y) {
+							return d.temp;
+						});
 				});
 		}
 
@@ -103,6 +117,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (n === barLength) {
 			callback();
 		} else {
+
+			bar.exit().selectAll('text').remove();
+
 			bar.exit()
 				.transition().duration(500)
 				.attr('transform', function(d, i) { 
