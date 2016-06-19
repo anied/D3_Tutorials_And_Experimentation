@@ -1,0 +1,41 @@
+.inline-clearance {
+	margin-right: 1em;
+	margin-left: 1em;
+}
+
+.top-clearance {
+	margin-top: 30px;
+}
+
+.geolocation-supported .lead.showIfLocation {
+	display: block;
+}
+
+.geolocation-supported .form-inline .form-group.showIfLocation {
+	display: inline-block;
+}
+
+.geolocation-supported .hideIfLocation {
+	display: none !important;
+}
+
+
+.geolocation-unsupported .lead.hideIfLocation {
+	display: block;
+}
+
+.geolocation-unsupported .form-inline .form-group.hideIfLocation {
+	display: inline-block;
+}
+
+.geolocation-unsupported .showIfLocation {
+	display: none !important;
+}
+
+
+rect+text {
+	fill: white;
+    font: 15px sans-serif;
+    text-anchor: middle;
+    font-weight: bold;
+}

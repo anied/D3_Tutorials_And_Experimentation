@@ -26,6 +26,11 @@
   ],
   "dependencies": {
     "d3": "~3.5.17",
-    "highlightjs": "~9.4.0"
+    "highlightjs": "~9.4.0",
+    "bootstrap": "~3.3.6",
+    "jquery": "~3.0.0"
+  },
+  "resolutions": {
+    "jquery": "1.9.1 - 2"
   }
 }
