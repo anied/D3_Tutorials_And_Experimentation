@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	var $qsa = document.querySelectorAll.bind(document);
 	var locationButton = $qs('#getWeatherByLocation');
 	var zipSubmitButton = $qs('#getWeatherByZip');
+	var zipInput = $qs('#zipcode');
 	var geolocationAvailable = ("geolocation" in navigator);
 
 	var height = 400;
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	function loadWeatherData(data) {
 		//TODO-- everything goes in the one big method to start-- later on it ought to be properly broken out into separate functions for setup, update, etc...
 		//TODO-- seperate attr methods are a little messy-- one big object (or even a function returning the various objects) would probably be cleaner
+		//TODO-- error handling, waiting indicators while retreiving data or getting location
 		//TODO-- make it look nice
 
 		var datesArr = data.time.startPeriodName;
@@ -200,6 +202,15 @@ document.addEventListener('DOMContentLoaded', function () {
 	zipSubmitButton
 		.addEventListener('click', function () {
 			getWeatherByZip();
+		});
+
+	zipInput
+		.addEventListener('keydown', function (evt) {
+			if (evt.keyCode === 13) {
+				evt.preventDefault();
+				zipSubmitButton.focus();
+				getWeatherByZip();
+			}
 		});
 
 });
