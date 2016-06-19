@@ -15,7 +15,7 @@
 		<h1>Weather Forecast</h1>
 		<p class="lead showIfLocation">Use your browsers location to get local weather, or search weather by zipcode.</p>
 		<p class="lead hideIfLocation">Search weather by zipcode.</p>
-		<div class="form-inline">
+		<form class="form-inline">
 			<div class="form-group showIfLocation">
 				<button id="getWeatherByLocation" type="button" class="btn btn-primary" >Get weather for my location</button>
 				<strong class="inline-clearance">OR</strong>
@@ -25,8 +25,7 @@
 				<input class="form-control" type="text" id="zipcode" placeholder="Search by zip">
 				<button id="getWeatherByZip" type="button" class="btn btn-default">Search</button>
 			</div>
-
-		</div>
+		</form>
 		<div class="bar-graph-wrapper top-clearance">
 			<svg class="bar-graph">
 				<!-- bar graph renders in here -->
