@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bar Graphs 2</title>
+	<link rel="stylesheet" href="index.css">
+	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+	<script src="/lib/jquery/dist/jquery.js"></script>
+	<script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="/lib/d3/d3.js"></script>
+	<script src="index.js"></script>
+</head>
+<body>
+
+	<div class="container">
+		<h1>Weather Forecast</h1>
+		<p class="lead showIfLocation">Use your browsers location to get local weather, or search weather by zipcode.</p>
+		<p class="lead hideIfLocation">Search weather by zipcode.</p>
+		<form class="form-inline">
+			<div class="form-group showIfLocation">
+				<button id="getWeatherByLocation" type="button" class="btn btn-primary" >Get weather for my location</button>
+				<strong class="inline-clearance">OR</strong>
+			</div>
+			<div class="form-group">
+				<label class="sr-only" for="zipcode">zipcode</label>
+				<input class="form-control" type="text" id="zipcode" placeholder="Search by zip">
+				<button id="getWeatherByZip" type="button" class="btn btn-default">Search</button>
+			</div>
+		</form>
+		<div class="bar-graph-wrapper top-clearance">
+			<svg class="bar-graph">
+				<!-- bar graph renders in here -->
+			</svg>
+		</div>
+	</div>
+
+
+</body>
+</html>
