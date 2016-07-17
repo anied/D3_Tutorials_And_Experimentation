@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	var barHeightMAX = 300;
 	var barWidth = 40;
 	var barSpacer = 5;
+	var width = 700;
 	var maxTemp = 100;
 
 	var calcBarHeight = d3.scale.linear()
@@ -21,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	var calcColor = d3.scale.linear()
 								.domain([0, maxTemp])
 								.rangeRound([0, 255]);
+
+	var x = d3.scale.ordinal()
+					.rangeBands([0, width], 0.1);
 
 	if (geolocationAvailable) {
 		$qs('body').className += "geolocation-supported";
@@ -41,7 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 		var barGraph = d3.select('.bar-graph')
-							.attr('height', height);
+							.attr('height', height)
+							.attr('width', width);
 
 		var bar;
 
@@ -50,21 +55,25 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 
 		function update() {
+
+			x.domain(dataArr.map(function (d) {
+				return d.label;
+			}));
+
 			bar = barGraph.selectAll('g')
 					.data(dataArr);
 
-			barGraph.attr('width', (dataArr.length * (barWidth+barSpacer))+'px' );
+			// barGraph.attr('width', (dataArr.length * (barWidth+barSpacer))+'px' );
 
 			bar.exit().remove();
 
 			bar.enter()
 					.append('g')
-					.attr('transform', function(d, i) { 
-						var width = i === 0 ? barSpacer : barSpacer + (barSpacer*i) + (barWidth*i);
-						return 'translate(' + width + ',' + (barHeightMAX-calcBarHeight(d.temp)) + ')';
+					.attr('transform', function(d, i) {
+						return 'translate(' + x(d.label) + ',' + (barHeightMAX-calcBarHeight(d.temp)) + ')';
 					})
 						.append('rect')
-						.attr('width', barWidth+'px')
+						.attr('width', x.rangeBand() + 'px')
 						.attr('y', function (d, i) {
 							return calcBarHeight(d.temp)+'px';
 						})
@@ -95,6 +104,8 @@ document.addEventListener('DOMContentLoaded', function () {
 						});
 				});
 		}
+
+
 
 		for (i = 0; i < datesArr.length; i++) {
 			dataArr.push({
@@ -204,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			getWeatherByZip();
 		});
 
-	zipInput
+	zipInput // pretty silly-- probably should've just made a properly defined form...
 		.addEventListener('keydown', function (evt) {
 			if (evt.keyCode === 13) {
 				evt.preventDefault();
