@@ -24,11 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	var x = d3.scale.ordinal()
 					.rangeBands([0, width], 0.1);
 
-	if (geolocationAvailable) {
-		$qs('body').className += "geolocation-supported";
-	} else {
-		$qs('body').className += "geolocation-unsupported";
-	}
 
 	function loadWeatherData(data) {
 		//TODO-- everything goes in the one big method to start-- later on it ought to be properly broken out into separate functions for setup, update, etc...
@@ -199,6 +194,14 @@ document.addEventListener('DOMContentLoaded', function () {
 		var zipcode = $qs('#zipcode').value;
 		fetchCoords(zipcode);
 	}
+
+
+	if (geolocationAvailable) {
+		$qs('body').className += "geolocation-supported";
+	} else {
+		$qs('body').className += "geolocation-unsupported";
+	}
+
 
 	locationButton
 		.addEventListener('click', function () {
