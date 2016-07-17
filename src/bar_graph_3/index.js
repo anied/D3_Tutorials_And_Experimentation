@@ -10,8 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	var height = 400;
 	var barHeightMAX = 300;
-	var barWidth = 40;
-	var barSpacer = 5;
 	var width = 700;
 	var maxTemp = 100;
 
@@ -63,8 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			bar = barGraph.selectAll('g')
 					.data(dataArr);
 
-			// barGraph.attr('width', (dataArr.length * (barWidth+barSpacer))+'px' );
-
 			bar.exit().remove();
 
 			bar.enter()
@@ -95,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						.append('text')
 						.attr({
 							'x': function (d, y) {
-								return barWidth / 2; 
+								return x.rangeBand() / 2; 
 							},
 							'y': 20
 						})
@@ -136,8 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			bar.exit()
 				.transition().duration(500)
 				.attr('transform', function(d, i) { 
-					var width = i === 0 ? barSpacer : barSpacer + (barSpacer*i) + (barWidth*i);
-					return 'translate(' + width + ',' + (barHeightMAX-calcBarHeight(maxTemp)) + ')';
+					return 'translate(' + x(d.label) + ',' + (barHeightMAX-calcBarHeight(maxTemp)) + ')';
 				}).each('start', function () {
 					d3.select(this)
 						.select('rect')
