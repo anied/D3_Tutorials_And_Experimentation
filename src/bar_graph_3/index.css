@@ -50,3 +50,7 @@ rect+text {
   stroke: #000;
   shape-rendering: crispEdges;
 }
+
+.y.axis .y-label {
+	font-weight: 700;
+}

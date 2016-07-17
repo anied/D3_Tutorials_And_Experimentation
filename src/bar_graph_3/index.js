@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	var yAxis = d3.svg.axis()
 						.scale(calcBarHeight)
-						.orient('left');
+						.orient('left')
+						.ticks(10);
 
 
 	var barGraph = d3.select('.bar-graph')
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		//TODO-- seperate attr methods are a little messy-- one big object (or even a function returning the various objects) would probably be cleaner
 		//TODO-- error handling, waiting indicators while retreiving data or getting location
 		//TODO-- make it look nice
+		//TODO- normalize single vs double quotes
 
 		var datesArr = data.time.startPeriodName;
 		var tempsArr = data.data.temperature;
@@ -82,6 +84,15 @@ document.addEventListener('DOMContentLoaded', function () {
 			barGraph.append("g")
 			    .attr("class", "y axis")
 			    .call(yAxis);
+
+			barGraph.select('.y.axis')
+				.append("text")
+					.attr('class', 'y-label')
+				    .attr("transform", "rotate(-90)")
+				    .attr("y", -40)
+				    .attr("dy", ".71em")
+				    .style("text-anchor", "end")
+				    .text("Temperature (ºF)");
 
 
 			bar = barGraph.selectAll('g.bar-wrap')
