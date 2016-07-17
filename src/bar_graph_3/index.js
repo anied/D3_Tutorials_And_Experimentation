@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	var calcBarHeight = d3.scale.linear()
 								.domain([0, maxTemp])
-								.range([0, barHeightMAX]);
+								.range([barHeightMAX, 0]);
 
 	var calcColor = d3.scale.linear()
 								.domain([0, maxTemp])
@@ -104,12 +104,12 @@ document.addEventListener('DOMContentLoaded', function () {
 					.append('g')
 					.attr('class', 'bar-wrap')
 					.attr('transform', function(d, i) {
-						return 'translate(' + x(d.label) + ',' + (barHeightMAX-calcBarHeight(d.temp)) + ')';
+						return 'translate(' + x(d.label) + ',' + ((calcBarHeight(d.temp)-calcBarHeight(maxTemp))) + ')';
 					})
 						.append('rect')
 						.attr('width', x.rangeBand() + 'px')
 						.attr('y', function (d, i) {
-							return calcBarHeight(d.temp)+'px';
+							return (calcBarHeight(0) - calcBarHeight(d.temp))+'px';
 						})
 						.attr('height', '0px');
 
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				.attr('y', 0)
 				.attr({
 					'height' : function (d, i) {
-						return calcBarHeight(d.temp)+'px';
+						return (-(calcBarHeight(d.temp) - calcBarHeight(0))) +'px';
 					},
 					'fill' : function (d, i) {
 						return generateRGB(d.temp);
