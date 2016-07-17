@@ -65,10 +65,19 @@ document.addEventListener('DOMContentLoaded', function () {
 			}));
 
 
+			barGraph.selectAll('.axis').remove(); // remove existing axes-- is this the right place for this?
+
+
 			barGraph.append("g")
-			    .attr("class", "x axis")
-			    .attr("transform", "translate(0," + height + ")")
-			    .call(xAxis);
+					    .attr("class", "x axis")
+					    .attr("transform", "translate(0," + (height-100) + ")") //big old bandaid solution with the magic number ... :(
+					    .call(xAxis)
+				    .selectAll("text") //http://bl.ocks.org/mbostock/4403522
+				      .attr("y", 0)
+				      .attr("x", 9)
+				      .attr("dy", ".35em")
+				      .attr("transform", "rotate(90)")
+				      .style("text-anchor", "start");
 
 			barGraph.append("g")
 			    .attr("class", "y axis")
@@ -82,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			bar.enter()
 					.append('g')
-					.attr('class', '.bar-wrap')
+					.attr('class', 'bar-wrap')
 					.attr('transform', function(d, i) {
 						return 'translate(' + x(d.label) + ',' + (barHeightMAX-calcBarHeight(d.temp)) + ')';
 					})
@@ -134,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	function zeroData(callback) {
 
-		var bar = d3.select('.bar-graph').selectAll('.bar-wrap');
+		var bar = barGraph.selectAll('g.bar-wrap');
 
 		var barLength = bar[0].length;
 		var n = 0;
@@ -168,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
 								}
 							});			
 				});
+			
 		}
 
 	
