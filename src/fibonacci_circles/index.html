@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fibonacci Circles</title>
+	<link rel="stylesheet" href="index.css">
+	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+	<script src="/lib/jquery/dist/jquery.js"></script>
+	<script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="/lib/d3/d3.js"></script>
+	<script src="index.js"></script>
+</head>
+<body>
+
+	<div id="introAndControlsWrapper" class="container">
+		<h1>Fibonacci Circles</h1>
+		<p class="lead">Study of relative sizes in the Fibonacci Sequence</p>
+		<form class="form-inline">
+			<div class="form-group showIfLocation">
+				<button id="getWeatherByLocation" type="button" class="btn btn-primary" >Add a circle</button>
+			</div>
+		</form>
+<!-- 		<div class="bar-graph-wrapper top-clearance"> -->
+<!-- 			<svg class="bar-graph"> -->
+				<!-- bar graph renders in here -->
+<!-- 			</svg> -->
+<!-- 		</div> -->
+	</div>
+
+	<div class="container svg-wrapper" id="fibonacciCirclesWrapper">
+		<svg id="fibonacci-circles">
+			<!-- Content renders here -->
+		</svg>
+	</div>
+
+
+</body>
+</html>
