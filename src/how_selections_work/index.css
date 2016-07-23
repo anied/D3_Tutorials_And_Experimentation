@@ -1,0 +1,10 @@
+[class^=section-] {
+	border-radius: 5px;
+	border: 1px #CCC solid;
+	min-height: 50px;
+	padding: 10px;
+}
+
+.rendering-area .lead {
+	text-align: center;
+}
