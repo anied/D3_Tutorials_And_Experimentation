@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
                .style('fill', 'steelblue')
                .attr('cy', function (d) { return (height/2); })
                .attr('cx', function (d, i) {
-                    var radiiBuffers = rMultiplier*d;
+                    var radiiBuffers = rMultiplier*dataset[i-1];
                     var j;
 
                     i = i-1;
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     return (spacer*i)+radiiBuffers;
                })
-               .attr('r', rMultiplier)
+               .attr('r', function (d, i) { return rMultiplier*dataset[i-1]; })
                .transition()
                .duration(500)
                .delay(0)
