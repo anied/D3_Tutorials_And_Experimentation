@@ -49,11 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
                .attr('cx', function (d, i) {
                     var radiiBuffers = rMultiplier*d;
                     var j;
-                    console.log(i);
-
-                    // if (i > 0) {
-                    //     radiiBuffers += rMultiplier*dataset[i-1]*2;
-                    // }
 
                     if (i > 0) {
                         for (j = i; j > 0; j--) {
@@ -63,6 +58,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     return (spacer*i)+radiiBuffers;
                 })
+               .attr('r', 0)
+               .transition()
+               .ease('bounce')
                .attr('r', function (d) { return rMultiplier*d; });
     }
 
