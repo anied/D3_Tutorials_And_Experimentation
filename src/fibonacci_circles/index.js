@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var width;
     var svg = d3.select('#fibonacci-circles');
     var dataset = [];
-    var rMultiplier = 5;
-    var spacer = 10;
+    var rMultiplier = 2;
+    var spacer = 5;
     var display; // necessary?
 
     function calculateSVGDimensions() {
