@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var svg = d3.select('#fibonacci-circles');
     var dataset = [];
     var rMultiplier = 5;
-    var spacer = 5;
+    var spacer = 10;
     var display; // necessary?
 
     function calculateSVGDimensions() {
@@ -45,8 +45,24 @@ document.addEventListener('DOMContentLoaded', function () {
         display.enter()
                .append('circle')
                .style('fill', 'steelblue')
-               .attr('cy', function (d) { return ( height/2)-(rMultiplier*d); })
-               .attr('cx', function (d, i) { return (spacer*i)+(rMultiplier*d); })
+               .attr('cy', function (d) { return (height/2); })
+               .attr('cx', function (d, i) {
+                    var radiiBuffers = rMultiplier*d;
+                    var j;
+                    console.log(i);
+
+                    // if (i > 0) {
+                    //     radiiBuffers += rMultiplier*dataset[i-1]*2;
+                    // }
+
+                    if (i > 0) {
+                        for (j = i; j > 0; j--) {
+                            radiiBuffers += rMultiplier*dataset[j-1]*2;                        
+                        }
+                    }
+
+                    return (spacer*i)+radiiBuffers;
+                })
                .attr('r', function (d) { return rMultiplier*d; });
     }
 
