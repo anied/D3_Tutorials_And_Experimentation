@@ -1,41 +1,56 @@
 document.addEventListener('DOMContentLoaded', function () {
-	
-	var height;
-	var width;
-	var svg = document.querySelector('#fibonacci-circles');
-	var data = [];
+    
+    var height;
+    var width;
+    var svg = d3.select('#fibonacci-circles');
+    var dataset = [];
+    var rMultiplier = 5;
+    var spacer = 5;
+    var display; // necessary?
 
-	function calculateSVGDimensions() {
-		//TODO-- there may be a better way to handle this...
-		var topSection = document.querySelector('#introAndControlsWrapper');
-		var svgWrapper = document.querySelector('#fibonacciCirclesWrapper');
+    function calculateSVGDimensions() {
+        //TODO-- there may be a better way to handle this...
+        var topSection = document.querySelector('#introAndControlsWrapper');
+        var svgWrapper = document.querySelector('#fibonacciCirclesWrapper');
 
-		height = window.innerHeight - topSection.offsetHeight;
-		width = svgWrapper.getBoundingClientRect().width;
+        height = window.innerHeight - topSection.offsetHeight;
+        width = svgWrapper.getBoundingClientRect().width;
 
-		svg.style.height = height;
-		svg.style.width = width;
-	}
+        svg.attr('height', height);
+        svg.attr('width', width);
+    }
 
-	function incrementData() {
+    function incrementDataset() {
 
-		var length = data.length;
+        var length = dataset.length;
 
-		if ( length === 0 ) {
-			data.push(1);
-		} else if ( length === 1 ) {
-			data.push(1);
-		} else {
-			data.push(data[length-1]+data[length-2]);
-		}
-	}
+        if ( length === 0 ) {
+            dataset.push(1);
+        } else if ( length === 1 ) {
+            dataset.push(1);
+        } else {
+            dataset.push(dataset[length-1]+dataset[length-2]);
+        }
+        update(dataset);
+    }
 
-	function registerEventListeners() {
-		document.querySelector('#incrementButton').addEventListener('click', incrementData);
-	}
+    function registerEventListeners() {
+        document.querySelector('#incrementButton').addEventListener('click', incrementDataset);
+    }
 
-	registerEventListeners();
-	calculateSVGDimensions();
+    function update(newData) {
+        display = svg.selectAll('circle')
+                         .data(newData);
 
+        display.enter()
+               .append('circle')
+               .style('fill', 'steelblue')
+               .attr('cy', function (d) { return ( height/2)-(rMultiplier*d); })
+               .attr('cx', function (d, i) { return (spacer*i)+(rMultiplier*d); })
+               .attr('r', function (d) { return rMultiplier*d; });
+    }
+
+    registerEventListeners();
+    calculateSVGDimensions();
 
 });
