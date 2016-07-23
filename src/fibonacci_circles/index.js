@@ -50,6 +50,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     var radiiBuffers = rMultiplier*d;
                     var j;
 
+                    if (i > 1) {
+                        for (j = i-1; j > 0; j--) {
+                            radiiBuffers += rMultiplier*dataset[j-1]*2;                        
+                        }
+                    }
+
+                    return (spacer*i)+radiiBuffers;
+               })
+               .transition()
+               .attr('cx', function (d, i) {
+                    var radiiBuffers = rMultiplier*d;
+                    var j;
+
                     if (i > 0) {
                         for (j = i; j > 0; j--) {
                             radiiBuffers += rMultiplier*dataset[j-1]*2;                        
@@ -58,8 +71,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     return (spacer*i)+radiiBuffers;
                 })
-               .attr('r', 0)
-               .transition()
+               .attr('r', rMultiplier)
+               .delay(500)
                .ease('bounce')
                .attr('r', function (d) { return rMultiplier*d; });
     }
