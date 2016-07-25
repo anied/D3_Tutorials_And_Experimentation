@@ -17,8 +17,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	function lessonOneSectionOne() {
 		var data = generateArbitraryData();
+		var renderingArea = d3.select('.renderingArea');
+
+
+		function update() {
+			renderingArea
+		}
+
+
 		d3.select('#lessonOne .section-one .rendering-area .arbitrary-data-label')
 		  .text(arrayToDisplayString(data));
+
+
 
 
 	}
