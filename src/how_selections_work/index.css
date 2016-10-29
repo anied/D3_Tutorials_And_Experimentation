@@ -8,3 +8,31 @@
 .rendering-area .lead {
 	text-align: center;
 }
+
+
+/*Lesson #1 : Section #1*/
+#lessonOne [class^=data-] {
+	display: inline-block;
+}
+
+#lessonOne .data-div {
+	background-color: pink;
+	width: 90px;
+	height: 90px;
+	position: relative;
+	padding-top: 4px;
+	padding-left: 4px;
+}
+
+#lessonOne .data-p {
+	background-color: yellow;
+	width: 30px;
+	height: 30px;
+	top: 30px;
+	right: 30px;
+	position: absolute;
+	text-align: center;
+	vertical-align: middle;
+	margin: 0;
+	padding-top: 4px;
+}

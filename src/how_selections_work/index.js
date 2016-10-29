@@ -17,8 +17,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	function lessonOneSectionOne() {
 		var data = generateArbitraryData();
+		var renderingArea = d3.select('#lessonOne .rendering-area');
+
+
+		function update() {
+			var boxes = renderingArea.selectAll('div.data-div').data(data);
+			var innerBoxes = boxes.select('div.data-p');
+
+			// debugger;
+
+			boxes.enter()
+				.append('div')
+				.attr('class', 'data-div')
+				.text(function (d) { return d; });
+
+			innerBoxes.enter()
+				.append('div')
+				.attr('class', 'data-div')
+				.text(function (d) { return d; });
+				
+
+		}
+
+
 		d3.select('#lessonOne .section-one .rendering-area .arbitrary-data-label')
 		  .text(arrayToDisplayString(data));
+
+		update();
 
 
 	}
