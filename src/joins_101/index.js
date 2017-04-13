@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', function () {
                            .data(data);
 
             paragraphs.enter()
-                    .append('p')
-                    .text(function (d, i) { return 'Paragraph #'+i+' -- Data: '+d; });
+                      .append('p')
+                      .text(function (d, i) { return 'Paragraph #'+i+' -- Data: '+d; });
 
             paragraphs.exit().remove();
 
