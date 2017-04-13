@@ -40,6 +40,22 @@ paragraphs.enter()
 
         <div id="lessonTwo" class="container">
             <h2>Lesson #2: Enter/Update/Exit</h2>
+            <pre>
+                <code class="javascript">
+/* ...new data magically appears... */
+paragraphs = d3.select('#sectionTwo')
+               .selectAll('p')
+               .data(data);
+
+paragraphs.enter()
+          .append('p')
+          .text(function (d, i) { return 'Paragraph #'+i+' -- Data: '+d; });
+
+paragraphs.exit().remove();
+
+paragraphs.text(function (d, i) { return 'Paragraph #'+i+' -- Data: '+d; });
+                </code>
+            </pre>
             <p>Push the button to get a different data set.</p>
             <div class="form-group">
                 <button class="btn btn-info request-fresh-data">Get Fresh Data</button>
