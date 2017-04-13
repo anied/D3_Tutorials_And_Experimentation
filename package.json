@@ -4,7 +4,7 @@
   "description": "Just a repo to store various tests, tutorials and other code while learning D3.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node node_modules/.bin/http-server src"
+    "start": "node node_modules/http-server/bin/http-server src"
   },
   "keywords": [
     "prototype",
